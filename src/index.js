@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql } from '@apollo/client'
 
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
@@ -26,6 +27,9 @@ query {
   }
 }
 `
+
+
+
 
 client.query({ query })
   .then((response) => {

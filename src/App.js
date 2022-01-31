@@ -1,12 +1,40 @@
-import React from 'react';
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
 
- const Hello = () => {
+const ALL_PERSONS = gql`
+  query {
+    allPersons {
+      name
+      phone
+      id
+    }
+  }
+`;
+const Persons = ({ persons }) => {
   return (
     <div>
-      <h1>Hello grahql</h1>
+      <h2>Persons</h2>
+      {persons.map((p) => (
+        <div key={p.name}>
+          {p.name} {p.phone}
+        </div>
+      ))}
     </div>
-  )
-
+  );
 };
 
-export default Hello;
+const App = () => {
+  const result = useQuery(ALL_PERSONS);
+
+  if (result.loading) {
+    return <div>loading...</div>;
+  }
+
+  return (
+    <div>
+      <Persons persons={result.data.allPersons} />
+    </div>
+  );
+};
+
+export default App;
